@@ -1,0 +1,114 @@
+﻿@page "/pets/edit"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Pet</h2>
+<hr />
+@if (Pet is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Pet" OnValidSubmit="UpdatePet" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Pet.PetId" value="@Pet.PetId" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Pet.Name" class="form-control" />
+                    <ValidationMessage For="() => Pet.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age:</label>
+                    <InputNumber id="age" @bind-Value="Pet.Age" class="form-control" />
+                    <ValidationMessage For="() => Pet.Age" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="species" class="form-label">Species:</label>
+                    <InputText id="species" @bind-Value="Pet.Species" class="form-control" />
+                    <ValidationMessage For="() => Pet.Species" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="colour" class="form-label">Colour:</label>
+                    <InputText id="colour" @bind-Value="Pet.Colour" class="form-control" />
+                    <ValidationMessage For="() => Pet.Colour" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender:</label>
+                    <InputText id="gender" @bind-Value="Pet.Gender" class="form-control" />
+                    <ValidationMessage For="() => Pet.Gender" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="organizationid" class="form-label">OrganizationId:</label>
+                    <InputNumber id="organizationid" @bind-Value="Pet.OrganizationId" class="form-control" />
+                    <ValidationMessage For="() => Pet.OrganizationId" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/pets">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int PetId { get; set; }
+
+    [SupplyParameterFromForm]
+    private Pet? Pet { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Pet ??= await context.Pet.FirstOrDefaultAsync(m => m.PetId == PetId);
+
+        if (Pet is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdatePet()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Pet!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PetExists(Pet!.PetId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/pets");
+    }
+
+    private bool PetExists(int petid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Pet.Any(e => e.PetId == petid);
+    }
+}

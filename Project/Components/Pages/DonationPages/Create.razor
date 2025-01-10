@@ -1,0 +1,54 @@
+﻿@page "/donations/create"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Donation</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Donation" OnValidSubmit="AddDonation" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date:</label> 
+                <InputDate id="date" @bind-Value="Donation.Date" class="form-control" /> 
+                <ValidationMessage For="() => Donation.Date" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="amount" class="form-label">Amount:</label> 
+                <InputNumber id="amount" @bind-Value="Donation.Amount" class="form-control" /> 
+                <ValidationMessage For="() => Donation.Amount" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserId:</label> 
+                <InputNumber id="userid" @bind-Value="Donation.UserId" class="form-control" /> 
+                <ValidationMessage For="() => Donation.UserId" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/donations">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Donation Donation { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddDonation()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Donation.Add(Donation);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/donations");
+    }
+}

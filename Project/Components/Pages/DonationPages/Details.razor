@@ -1,0 +1,50 @@
+﻿@page "/donations/details"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Donation</h2>
+    <hr />
+    @if (donation is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Date</dt>
+            <dd class="col-sm-10">@donation.Date</dd>
+            <dt class="col-sm-2">Amount</dt>
+            <dd class="col-sm-10">@donation.Amount</dd>
+            <dt class="col-sm-2">UserId</dt>
+            <dd class="col-sm-10">@donation.UserId</dd>
+        </dl>
+        <div>
+            <a href="@($"/donations/edit?donationid={donation.DonationId}")">Edit</a> |
+            <a href="@($"/donations")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Donation? donation;
+
+    [SupplyParameterFromQuery]
+    private int DonationId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        donation = await context.Donation.FirstOrDefaultAsync(m => m.DonationId == DonationId);
+
+        if (donation is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

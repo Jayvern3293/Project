@@ -1,0 +1,99 @@
+﻿@page "/donations/edit"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Donation</h2>
+<hr />
+@if (Donation is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Donation" OnValidSubmit="UpdateDonation" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Donation.DonationId" value="@Donation.DonationId" />
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date:</label>
+                    <InputDate id="date" @bind-Value="Donation.Date" class="form-control" />
+                    <ValidationMessage For="() => Donation.Date" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount:</label>
+                    <InputNumber id="amount" @bind-Value="Donation.Amount" class="form-control" />
+                    <ValidationMessage For="() => Donation.Amount" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="userid" class="form-label">UserId:</label>
+                    <InputNumber id="userid" @bind-Value="Donation.UserId" class="form-control" />
+                    <ValidationMessage For="() => Donation.UserId" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/donations">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int DonationId { get; set; }
+
+    [SupplyParameterFromForm]
+    private Donation? Donation { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Donation ??= await context.Donation.FirstOrDefaultAsync(m => m.DonationId == DonationId);
+
+        if (Donation is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateDonation()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Donation!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!DonationExists(Donation!.DonationId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/donations");
+    }
+
+    private bool DonationExists(int donationid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Donation.Any(e => e.DonationId == donationid);
+    }
+}

@@ -1,0 +1,99 @@
+﻿@page "/adoptionhistories/edit"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>AdoptionHistory</h2>
+<hr />
+@if (AdoptionHistory is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="AdoptionHistory" OnValidSubmit="UpdateAdoptionHistory" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="AdoptionHistory.AdoptionHistoryId" value="@AdoptionHistory.AdoptionHistoryId" />
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date:</label>
+                    <InputDate id="date" @bind-Value="AdoptionHistory.Date" class="form-control" />
+                    <ValidationMessage For="() => AdoptionHistory.Date" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="userid" class="form-label">UserId:</label>
+                    <InputNumber id="userid" @bind-Value="AdoptionHistory.UserId" class="form-control" />
+                    <ValidationMessage For="() => AdoptionHistory.UserId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="petid" class="form-label">PetId:</label>
+                    <InputNumber id="petid" @bind-Value="AdoptionHistory.PetId" class="form-control" />
+                    <ValidationMessage For="() => AdoptionHistory.PetId" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/adoptionhistories">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int AdoptionHistoryId { get; set; }
+
+    [SupplyParameterFromForm]
+    private AdoptionHistory? AdoptionHistory { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        AdoptionHistory ??= await context.AdoptionHistory.FirstOrDefaultAsync(m => m.AdoptionHistoryId == AdoptionHistoryId);
+
+        if (AdoptionHistory is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateAdoptionHistory()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(AdoptionHistory!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!AdoptionHistoryExists(AdoptionHistory!.AdoptionHistoryId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/adoptionhistories");
+    }
+
+    private bool AdoptionHistoryExists(int adoptionhistoryid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.AdoptionHistory.Any(e => e.AdoptionHistoryId == adoptionhistoryid);
+    }
+}

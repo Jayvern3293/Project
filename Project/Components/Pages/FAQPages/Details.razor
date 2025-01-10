@@ -1,0 +1,46 @@
+﻿@page "/faqs/details"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>FAQ</h2>
+    <hr />
+    @if (faq is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Question</dt>
+            <dd class="col-sm-10">@faq.Question</dd>
+        </dl>
+        <div>
+            <a href="@($"/faqs/edit?faqid={faq.FAQId}")">Edit</a> |
+            <a href="@($"/faqs")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private FAQ? faq;
+
+    [SupplyParameterFromQuery]
+    private int FAQId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        faq = await context.FAQ.FirstOrDefaultAsync(m => m.FAQId == FAQId);
+
+        if (faq is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

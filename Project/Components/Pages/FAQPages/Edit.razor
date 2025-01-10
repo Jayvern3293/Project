@@ -1,0 +1,89 @@
+﻿@page "/faqs/edit"
+@using Microsoft.EntityFrameworkCore
+@using Project.Domain
+@inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>FAQ</h2>
+<hr />
+@if (FAQ is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="FAQ" OnValidSubmit="UpdateFAQ" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="FAQ.FAQId" value="@FAQ.FAQId" />
+                <div class="mb-3">
+                    <label for="question" class="form-label">Question:</label>
+                    <InputText id="question" @bind-Value="FAQ.Question" class="form-control" />
+                    <ValidationMessage For="() => FAQ.Question" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/faqs">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int FAQId { get; set; }
+
+    [SupplyParameterFromForm]
+    private FAQ? FAQ { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        FAQ ??= await context.FAQ.FirstOrDefaultAsync(m => m.FAQId == FAQId);
+
+        if (FAQ is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateFAQ()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(FAQ!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!FAQExists(FAQ!.FAQId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/faqs");
+    }
+
+    private bool FAQExists(int faqid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.FAQ.Any(e => e.FAQId == faqid);
+    }
+}
