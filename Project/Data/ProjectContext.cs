@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Project.Configurations.Entities;
 using Project.Domain;
 
 namespace Project.Data
@@ -22,5 +23,14 @@ namespace Project.Data
         public DbSet<Project.Domain.Organization> Organization { get; set; } = default!;
         public DbSet<Project.Domain.Pet> Pet { get; set; } = default!;
         public DbSet<Project.Domain.User> User { get; set; } = default!;
-    }
+
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new PetSeed());
+			modelBuilder.ApplyConfiguration(new UserSeed());
+		}
+	}
 }

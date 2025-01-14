@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data;
 
@@ -11,9 +12,11 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250110091454_PetSeedData")]
+    partial class PetSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,22 +221,6 @@ namespace Project.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Address = "123 Test Street",
-                            Email = "johnbork1@gmail.com",
-                            Name = "John Bork"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            Address = "555 Haight Street",
-                            Email = "ortizpapi@gmail.com",
-                            Name = "Big Papi"
-                        });
                 });
 #pragma warning restore 612, 618
         }
