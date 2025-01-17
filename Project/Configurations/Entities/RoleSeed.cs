@@ -11,14 +11,14 @@ namespace ProjectManagement.Configurations.Entities
 			new IdentityRole
 			{
 				Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-				Name = "Staff",
+				Name = "Administrator",
 				NormalizedName = "ADMINISTRATOR"
 			},
 			new IdentityRole
 			{
 				Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-				Name = "Customer",
-				NormalizedName = "CUSTOMER"
+				Name = "User",
+				NormalizedName = "USER"
 			}
 			);
 		}

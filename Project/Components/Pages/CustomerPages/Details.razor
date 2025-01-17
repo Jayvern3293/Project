@@ -1,4 +1,4 @@
-﻿@page "/users/details"
+﻿@page "/customers/details"
 @using Microsoft.EntityFrameworkCore
 @using Project.Domain
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
@@ -9,40 +9,40 @@
 <h1>Details</h1>
 
 <div>
-    <h2>User</h2>
+    <h2>Customer</h2>
     <hr />
-    @if (user is null)
+    @if (customer is null)
     {
         <p><em>Loading...</em></p>
     }
     else {
         <dl class="row">
             <dt class="col-sm-2">Name</dt>
-            <dd class="col-sm-10">@user.Name</dd>
+            <dd class="col-sm-10">@customer.Name</dd>
             <dt class="col-sm-2">Address</dt>
-            <dd class="col-sm-10">@user.Address</dd>
+            <dd class="col-sm-10">@customer.Address</dd>
             <dt class="col-sm-2">Email</dt>
-            <dd class="col-sm-10">@user.Email</dd>
+            <dd class="col-sm-10">@customer.Email</dd>
         </dl>
         <div>
-            <a href="@($"/users/edit?userid={user.UserId}")">Edit</a> |
-            <a href="@($"/users")">Back to List</a>
+            <a href="@($"/customers/edit?customerid={customer.CustomerId}")">Edit</a> |
+            <a href="@($"/customers")">Back to List</a>
         </div>
     }
 </div>
 
 @code {
-    private User? user;
+    private Customer? customer;
 
     [SupplyParameterFromQuery]
-    private int UserId { get; set; }
+    private int CustomerId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        user = await context.User.FirstOrDefaultAsync(m => m.UserId == UserId);
+        customer = await context.Customer.FirstOrDefaultAsync(m => m.CustomerId == CustomerId);
 
-        if (user is null)
+        if (customer is null)
         {
             NavigationManager.NavigateTo("notfound");
         }

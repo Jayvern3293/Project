@@ -12,8 +12,8 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20250114144600_AddIdentity")]
-    partial class AddIdentity
+    [Migration("20250117065420_New")]
+    partial class New
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,20 @@ namespace Project.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -137,6 +151,13 @@ namespace Project.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1781efa7-66dc-47f0-860f-e506d04102e4",
+                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -176,6 +197,12 @@ namespace Project.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -221,28 +248,26 @@ namespace Project.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
 
-            modelBuilder.Entity("Project.Domain.AdoptionHistory", b =>
-                {
-                    b.Property<int>("AdoptionHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdoptionHistoryId"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdoptionHistoryId");
-
-                    b.ToTable("AdoptionHistory");
+                    b.HasData(
+                        new
+                        {
+                            Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "88998058-62cc-4cec-9075-b621720126c9",
+                            Email = "admin@localhost.com",
+                            EmailConfirmed = true,
+                            FirstName = "Fready",
+                            LastName = "Sedy",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBK4N65pbn0DeFRtuFcXgWjdhK5wabV4WNfb0Z1IqGldL6J+6+emrlCnrPA/7Jbs6A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c4edc01c-55e5-44fe-9703-05742b73f6af",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@localhost.com"
+                        });
                 });
 
             modelBuilder.Entity("Project.Domain.Appointment", b =>
@@ -267,6 +292,28 @@ namespace Project.Migrations
                     b.ToTable("Appointment");
                 });
 
+            modelBuilder.Entity("Project.Domain.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customer");
+                });
+
             modelBuilder.Entity("Project.Domain.Donation", b =>
                 {
                     b.Property<int>("DonationId")
@@ -287,22 +334,6 @@ namespace Project.Migrations
                     b.HasKey("DonationId");
 
                     b.ToTable("Donation");
-                });
-
-            modelBuilder.Entity("Project.Domain.FAQ", b =>
-                {
-                    b.Property<int>("FAQId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FAQId"));
-
-                    b.Property<string>("Question")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FAQId");
-
-                    b.ToTable("FAQ");
                 });
 
             modelBuilder.Entity("Project.Domain.Inquiry", b =>
@@ -396,44 +427,6 @@ namespace Project.Migrations
                             Name = "Bean",
                             OrganizationId = 0,
                             Species = "Lizard"
-                        });
-                });
-
-            modelBuilder.Entity("Project.Domain.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Address = "123 Test Street",
-                            Email = "johnbork1@gmail.com",
-                            Name = "John Bork"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            Address = "555 Haight Street",
-                            Email = "ortizpapi@gmail.com",
-                            Name = "Big Papi"
                         });
                 });
 

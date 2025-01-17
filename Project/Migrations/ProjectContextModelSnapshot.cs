@@ -52,14 +52,14 @@ namespace Project.Migrations
                         new
                         {
                             Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-                            Name = "Staff",
+                            Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -154,11 +154,6 @@ namespace Project.Migrations
                         {
                             UserId = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
-                        },
-                        new
-                        {
-                            UserId = "2781efa7-66dc-47f0-860f-e506d04102e4",
-                            RoleId = "bd2bcf0c-20db-474f-8407-5a6b159518bb"
                         });
                 });
 
@@ -256,60 +251,20 @@ namespace Project.Migrations
                         {
                             Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "79df0297-50ce-457b-a85a-8f490dffa2fb",
-                            Email = "staff@localhost.com",
+                            ConcurrencyStamp = "88998058-62cc-4cec-9075-b621720126c9",
+                            Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Fready",
                             LastName = "Sedy",
                             LockoutEnabled = false,
-                            NormalizedEmail = "STAFF@LOCALHOST.COM",
-                            NormalizedUserName = "STAFF@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIZrWYUIju9d0PG450sPUHx3RW91j/7gUE7hF/ejsJ5/jrwpHEIfGsHOMHqg2rutwA==",
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBK4N65pbn0DeFRtuFcXgWjdhK5wabV4WNfb0Z1IqGldL6J+6+emrlCnrPA/7Jbs6A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1f222013-6967-4068-90a5-fc1f98cf413d",
+                            SecurityStamp = "c4edc01c-55e5-44fe-9703-05742b73f6af",
                             TwoFactorEnabled = false,
-                            UserName = "staff@localhost.com"
-                        },
-                        new
-                        {
-                            Id = "2781efa7-66dc-47f0-860f-e506d04102e4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "41547269-8efb-47e2-9e35-71ed65a0c9a0",
-                            Email = "customer@localhost.com",
-                            EmailConfirmed = true,
-                            FirstName = "John",
-                            LastName = "Bork",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "CUSTOMER@LOCALHOST.COM",
-                            NormalizedUserName = "CUSTOMER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEATyUIxPF1TpE9ddgGxOeVZwsAmgGv9HnI6bNtNMN13qLeyZEfq/i45LYJZQywYJ7Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7133414a-eb66-4fe0-b0d3-418c63a7d3e9",
-                            TwoFactorEnabled = false,
-                            UserName = "customer@localhost.com"
+                            UserName = "admin@localhost.com"
                         });
-                });
-
-            modelBuilder.Entity("Project.Domain.AdoptionHistory", b =>
-                {
-                    b.Property<int>("AdoptionHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdoptionHistoryId"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdoptionHistoryId");
-
-                    b.ToTable("AdoptionHistory");
                 });
 
             modelBuilder.Entity("Project.Domain.Appointment", b =>
@@ -334,6 +289,28 @@ namespace Project.Migrations
                     b.ToTable("Appointment");
                 });
 
+            modelBuilder.Entity("Project.Domain.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customer");
+                });
+
             modelBuilder.Entity("Project.Domain.Donation", b =>
                 {
                     b.Property<int>("DonationId")
@@ -354,22 +331,6 @@ namespace Project.Migrations
                     b.HasKey("DonationId");
 
                     b.ToTable("Donation");
-                });
-
-            modelBuilder.Entity("Project.Domain.FAQ", b =>
-                {
-                    b.Property<int>("FAQId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FAQId"));
-
-                    b.Property<string>("Question")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FAQId");
-
-                    b.ToTable("FAQ");
                 });
 
             modelBuilder.Entity("Project.Domain.Inquiry", b =>
@@ -464,28 +425,6 @@ namespace Project.Migrations
                             OrganizationId = 0,
                             Species = "Lizard"
                         });
-                });
-
-            modelBuilder.Entity("Project.Domain.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
