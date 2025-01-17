@@ -34,7 +34,7 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 builder.Services.AddIdentityCore<ProjectUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<IdentityContext>()
+    .AddEntityFrameworkStores<ProjectContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 

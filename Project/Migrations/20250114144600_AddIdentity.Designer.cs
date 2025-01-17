@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data;
 
@@ -11,9 +12,11 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250114144600_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,20 +50,6 @@ namespace Project.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-                            Name = "Staff",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -148,18 +137,6 @@ namespace Project.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1781efa7-66dc-47f0-860f-e506d04102e4",
-                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
-                        },
-                        new
-                        {
-                            UserId = "2781efa7-66dc-47f0-860f-e506d04102e4",
-                            RoleId = "bd2bcf0c-20db-474f-8407-5a6b159518bb"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -199,12 +176,6 @@ namespace Project.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -250,44 +221,6 @@ namespace Project.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f3aa6a0f-5499-430c-a950-d4b35a8b6fbc",
-                            Email = "staff@localhost.com",
-                            EmailConfirmed = true,
-                            FirstName = "Fready",
-                            LastName = "Sedys",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "STAFF@LOCALHOST.COM",
-                            NormalizedUserName = "STAFF@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBawJpyZkQ00MfQedCeSHVfB/IsbnQ7VHIcwWgQNUffeAJrMZF1MRvMsaHkoFr+eig==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "bb55500a-86d2-4f0f-bff7-fbf7997739e9",
-                            TwoFactorEnabled = false,
-                            UserName = "staff@localhost.com"
-                        },
-                        new
-                        {
-                            Id = "2781efa7-66dc-47f0-860f-e506d04102e4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "51f79cfb-2001-4035-b676-512abd85b907",
-                            Email = "customer@localhost.com",
-                            EmailConfirmed = true,
-                            FirstName = "John",
-                            LastName = "Bork",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "CUSTOMER@LOCALHOST.COM",
-                            NormalizedUserName = "CUSTOMER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECwtcLC43jOSTrqT6IpjW6O91KE+AvI+e8m8Ed1EJWqCrXy2ymSxzwyibwv5EoBG6g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a842ca3-00fb-434f-a086-5bc81b08bfcd",
-                            TwoFactorEnabled = false,
-                            UserName = "customer@localhost.com"
-                        });
                 });
 
             modelBuilder.Entity("Project.Domain.AdoptionHistory", b =>
@@ -486,6 +419,22 @@ namespace Project.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Address = "123 Test Street",
+                            Email = "johnbork1@gmail.com",
+                            Name = "John Bork"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Address = "555 Haight Street",
+                            Email = "ortizpapi@gmail.com",
+                            Name = "Big Papi"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
