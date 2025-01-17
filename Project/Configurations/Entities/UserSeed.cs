@@ -16,7 +16,7 @@ namespace Project.Configurations.Entities
 				Email = "staff@localhost.com",
 				NormalizedEmail = "STAFF@LOCALHOST.COM",
 				FirstName = "Fready",
-				LastName = "Sedys",
+				LastName = "Sedy",
 				UserName = "staff@localhost.com",
 				NormalizedUserName = "STAFF@LOCALHOST.COM",
 				PasswordHash = hasher.HashPassword(null, "P@ssword1"),
