@@ -1,10 +1,13 @@
 ﻿@page "/pets"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Project.Domain
 @using Project.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+
+@attribute [Authorize(Roles = "Administrator, User")]
 
 <PageTitle>Index</PageTitle>
 
@@ -24,8 +27,10 @@
 
     <TemplateColumn Context="pet">
         <a href="@($"pets/edit?petid={pet.PetId}")">Edit</a> |
-        <a href="@($"pets/details?petid={pet.PetId}")">Details</a> |
-        <a href="@($"pets/delete?petid={pet.PetId}")">Delete</a>
+        <a href="@($"pets/details?petid={pet.PetId}")">Details</a> 
+        <AuthorizeView Roles= "Administrator">
+          |  <a href="@($"pets/delete?petid={pet.PetId}")">Delete</a>
+        </AuthorizeView>
     </TemplateColumn>
 </QuickGrid>
 
