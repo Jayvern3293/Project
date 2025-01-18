@@ -15,8 +15,7 @@
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <AuthorizeView>
-            <Authorized>
+        <AuthorizeView Roles="Administrator">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Manage">
                         <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
@@ -51,11 +50,43 @@
                         </button>
                     </form>
                 </div>
-            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles = "User">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Account/Manage">
+                    <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="pets">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Pets
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="donations/create">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Donate
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <form action="Account/Logout" method="post">
+                    <AntiforgeryToken />
+                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                    <button type="submit" class="nav-link">
+                        <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                    </button>
+                </form>
+            </div>
+        </AuthorizeView>
+        <AuthorizeView>
             <NotAuthorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Register">
                         <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Account/StaffRegister">
+                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register as Staff
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">

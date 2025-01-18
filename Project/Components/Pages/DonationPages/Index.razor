@@ -10,9 +10,11 @@
 
 <h1>Index</h1>
 
+<AuthorizeView Roles= "User">
 <p>
     <a href="donations/create">Create New</a>
 </p>
+</AuthorizeView>
 
 <QuickGrid Class="table" Items="context.Donation">
     <PropertyColumn Property="donation => donation.Date" />

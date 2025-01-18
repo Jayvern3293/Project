@@ -26,10 +26,10 @@
     <PropertyColumn Property="pet => pet.OrganizationId" />
 
     <TemplateColumn Context="pet">
-        <a href="@($"pets/edit?petid={pet.PetId}")">Edit</a> |
-        <a href="@($"pets/details?petid={pet.PetId}")">Details</a> 
-        <AuthorizeView Roles= "Administrator">
-          |  <a href="@($"pets/delete?petid={pet.PetId}")">Delete</a>
+        <a href="@($"pets/details?petid={pet.PetId}")">Details</a>
+        <AuthorizeView Roles="Administrator">
+        | <a href="@($"pets/edit?petid={pet.PetId}")">Edit</a> 
+        | <a href="@($"pets/delete?petid={pet.PetId}")">Delete</a>
         </AuthorizeView>
     </TemplateColumn>
 </QuickGrid>
