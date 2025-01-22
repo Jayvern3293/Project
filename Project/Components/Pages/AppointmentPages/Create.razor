@@ -1,8 +1,11 @@
 ﻿@page "/appointments/create"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Project.Domain
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
 @inject NavigationManager NavigationManager
+
+@attribute [Authorize(Roles = "User")]
 
 <PageTitle>Create</PageTitle>
 
@@ -36,7 +39,7 @@
 </div>
 
 <div>
-    <a href="/appointments">Back to List</a>
+    <a href="/pets">Go Back</a>
 </div>
 
 @code {

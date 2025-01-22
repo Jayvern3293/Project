@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data;
 
@@ -11,9 +12,11 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250122020957_RoleSeeds")]
+    partial class RoleSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +57,12 @@ namespace Project.Migrations
                             Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -148,6 +157,11 @@ namespace Project.Migrations
                         {
                             UserId = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
+                        },
+                        new
+                        {
+                            UserId = "2781efa7-66dc-47f0-860f-e506d04102e4",
+                            RoleId = "bd2bcf0c-20db-474f-8407-5a6b159518ba"
                         });
                 });
 
@@ -245,7 +259,7 @@ namespace Project.Migrations
                         {
                             Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5247d952-d24f-46e7-8f9c-ca305fb3c384",
+                            ConcurrencyStamp = "4184bb7a-9688-497f-b7f6-bf52674a69bb",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Fready",
@@ -253,11 +267,29 @@ namespace Project.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELlFf+sFzz0/1txcAi0BgXXDjEF+s+OXFS8SwKnNRhub/VfIVBsHyo89g6xB7sYD4g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENoXjk2zTeyj2at8b22xwcYseoT3vHpbxkL/94reXyoEBuGdwTemQRipOB2muOw8pQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ce4ffaf-1737-4221-9b49-341ae63e39ce",
+                            SecurityStamp = "5c95eddf-dfa3-4607-960d-554456ceff90",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
+                        },
+                        new
+                        {
+                            Id = "2781efa7-66dc-47f0-860f-e506d04102e4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b54413b5-92ec-48fa-8616-522129b561e2",
+                            Email = "user@localhost.com",
+                            EmailConfirmed = true,
+                            FirstName = "John",
+                            LastName = "Bork",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@LOCALHOST.COM",
+                            NormalizedUserName = "USER@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPpJHkNpS3j62rlsXtN7IJ12cd0S/iOM+yCoH6rJFz1taM6eI1qHNzr6M0f4MVZgOw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8fd544c6-3b79-4f27-8b1f-fd19ffdd9b28",
+                            TwoFactorEnabled = false,
+                            UserName = "user@localhost.com"
                         });
                 });
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data;
 
@@ -11,9 +12,11 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250122021925_a")]
+    partial class a
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,7 +248,7 @@ namespace Project.Migrations
                         {
                             Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5247d952-d24f-46e7-8f9c-ca305fb3c384",
+                            ConcurrencyStamp = "49ccbf15-e86a-4f97-b30c-259305439a3a",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Fready",
@@ -253,9 +256,9 @@ namespace Project.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELlFf+sFzz0/1txcAi0BgXXDjEF+s+OXFS8SwKnNRhub/VfIVBsHyo89g6xB7sYD4g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDA/Oq7ixEkozM/Hc1oRvM7L3ZmzvkDv4mqCcbxHZjjytvjFtEeZAvr/9YzpSvdsxA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ce4ffaf-1737-4221-9b49-341ae63e39ce",
+                            SecurityStamp = "4c69ee4a-1522-473e-a256-b910e062e3c5",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

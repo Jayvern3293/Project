@@ -24,7 +24,7 @@ namespace Project.Configurations.Entities
 				PetId = 2,
 				Name = "Bean",
 				Age = 1,
-				Species = "Lizard",
+				Species = "Monitor Lizard",
 				Colour = "Brown",
 				Gender = "Male"
 				// this pet doesn't have an organization ID
