@@ -1,4 +1,5 @@
 ﻿@page "/customers"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Project.Domain
@@ -6,9 +7,11 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+@attribute [Authorize(Roles = "Administrator")]
 
-<h1>Index</h1>
+<PageTitle>Customers</PageTitle>
+
+<h1>Customers</h1>
 
 <p>
     <a href="customers/create">Create New</a>

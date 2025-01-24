@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Project.Migrations
 {
     /// <inheritdoc />
-    public partial class New : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -255,16 +255,12 @@ namespace Project.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "ad2bcf0c-20db-474f-8407-5a6b159518ba", null, "Administrator", "ADMINISTRATOR" },
-                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", null, "User", "USER" }
-                });
+                values: new object[] { "ad2bcf0c-20db-474f-8407-5a6b159518ba", null, "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1781efa7-66dc-47f0-860f-e506d04102e4", 0, "88998058-62cc-4cec-9075-b621720126c9", "admin@localhost.com", true, "Fready", "Sedy", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEBK4N65pbn0DeFRtuFcXgWjdhK5wabV4WNfb0Z1IqGldL6J+6+emrlCnrPA/7Jbs6A==", null, false, "c4edc01c-55e5-44fe-9703-05742b73f6af", false, "admin@localhost.com" });
+                values: new object[] { "1781efa7-66dc-47f0-860f-e506d04102e4", 0, "72d1f3ee-80ed-4696-a1f2-f16cb52771b7", "admin@localhost.com", true, "Fready", "Sedy", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEEh5gtUIwbW3MeT1bf7FwL2dC32la09MUKJvJBHGxyExMvlQsLRrmCwTVk6iQHFMBQ==", null, false, "36aed453-f3a0-4616-bd33-582385371a1a", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Pet",
@@ -272,7 +268,7 @@ namespace Project.Migrations
                 values: new object[,]
                 {
                     { 1, 5, "White", "Unspecified", "Kohaku", 1, "Dog" },
-                    { 2, 1, "Brown", "Male", "Bean", 0, "Lizard" }
+                    { 2, 1, "Brown", "Male", "Bean", 0, "Monitor Lizard" }
                 });
 
             migrationBuilder.InsertData(

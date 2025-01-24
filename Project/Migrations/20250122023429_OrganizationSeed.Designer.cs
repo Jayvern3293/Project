@@ -12,8 +12,8 @@ using Project.Data;
 namespace Project.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20250122021207_SeedsNew")]
-    partial class SeedsNew
+    [Migration("20250122023429_OrganizationSeed")]
+    partial class OrganizationSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,12 +57,6 @@ namespace Project.Migrations
                             Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            Name = "User",
-                            NormalizedName = "USER"
                         });
                 });
 
@@ -157,11 +151,6 @@ namespace Project.Migrations
                         {
                             UserId = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
-                        },
-                        new
-                        {
-                            UserId = "2781efa7-66dc-47f0-860f-e506d04102e4",
-                            RoleId = "bd2bcf0c-20db-474f-8407-5a6b159518bb"
                         });
                 });
 
@@ -259,7 +248,7 @@ namespace Project.Migrations
                         {
                             Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "732e0e9b-a827-4dd5-be1c-712f1bb4de2f",
+                            ConcurrencyStamp = "b7fbeeb6-7d96-4b82-a646-4c8ca67d5f55",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Fready",
@@ -267,29 +256,11 @@ namespace Project.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC5x650wGddrVp7YBBbe6akC9cYK1gqdO1aZCxiZhwr+yowYSKRfodO071ojv7iVMw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDctbpwhunU6Ry5ulsV5/iwMxkjpj7Qj699NZ+5WmTFD+kWfd+LqMkrnhLJwMKi49Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39ed1a3f-66c6-4310-94b6-6fabe7fb2ebe",
+                            SecurityStamp = "7584accd-6767-410c-bc6c-316fc11f20ea",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
-                        },
-                        new
-                        {
-                            Id = "2781efa7-66dc-47f0-860f-e506d04102e4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "398343d7-2003-4276-9c1f-c3601702e28e",
-                            Email = "user@localhost.com",
-                            EmailConfirmed = true,
-                            FirstName = "John",
-                            LastName = "Bork",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@LOCALHOST.COM",
-                            NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKH+eLR0jPM4zEVXZgmIJXop0YAsPbKCWAFCl8JPHE4TzM5wtkkQWeQGltFppXOg+w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4075a6b1-325c-46e5-b6a6-8f8e030ba262",
-                            TwoFactorEnabled = false,
-                            UserName = "user@localhost.com"
                         });
                 });
 

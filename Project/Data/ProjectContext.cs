@@ -24,6 +24,7 @@ namespace Project.Data
 			modelBuilder.ApplyConfiguration(new RoleSeed());
 			modelBuilder.ApplyConfiguration(new UserSeed());
 			modelBuilder.ApplyConfiguration(new UserRoleSeed());
+			modelBuilder.ApplyConfiguration(new OrganizationSeed());
 		}
         public DbSet<Project.Domain.Customer> Customer { get; set; } = default!;
 	}

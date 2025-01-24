@@ -245,7 +245,7 @@ namespace Project.Migrations
                         {
                             Id = "1781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5247d952-d24f-46e7-8f9c-ca305fb3c384",
+                            ConcurrencyStamp = "af4a0b85-3890-4b24-b31c-f19367b5ffbc",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Fready",
@@ -253,9 +253,9 @@ namespace Project.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELlFf+sFzz0/1txcAi0BgXXDjEF+s+OXFS8SwKnNRhub/VfIVBsHyo89g6xB7sYD4g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKY17S7RzYOEoTizKz8P/qF5LXUCp1Cg1AhIrOYOkUbjrW3h8NWFZWWnj3bUe3uU7A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ce4ffaf-1737-4221-9b49-341ae63e39ce",
+                            SecurityStamp = "6b8bc7e8-ff38-4961-ab26-e7c154a997f8",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -366,6 +366,14 @@ namespace Project.Migrations
                     b.HasKey("OrganizationId");
 
                     b.ToTable("Organization");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationId = 1,
+                            Address = "977 Grove Street",
+                            Name = "HYV Animal Shelter"
+                        });
                 });
 
             modelBuilder.Entity("Project.Domain.Pet", b =>

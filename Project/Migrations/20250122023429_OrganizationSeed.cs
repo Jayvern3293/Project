@@ -5,7 +5,7 @@
 namespace Project.Migrations
 {
     /// <inheritdoc />
-    public partial class b : Migration
+    public partial class OrganizationSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace Project.Migrations
                 keyColumn: "Id",
                 keyValue: "1781efa7-66dc-47f0-860f-e506d04102e4",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "5247d952-d24f-46e7-8f9c-ca305fb3c384", "AQAAAAIAAYagAAAAELlFf+sFzz0/1txcAi0BgXXDjEF+s+OXFS8SwKnNRhub/VfIVBsHyo89g6xB7sYD4g==", "8ce4ffaf-1737-4221-9b49-341ae63e39ce" });
+                values: new object[] { "b7fbeeb6-7d96-4b82-a646-4c8ca67d5f55", "AQAAAAIAAYagAAAAEDctbpwhunU6Ry5ulsV5/iwMxkjpj7Qj699NZ+5WmTFD+kWfd+LqMkrnhLJwMKi49Q==", "7584accd-6767-410c-bc6c-316fc11f20ea" });
         }
 
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace Project.Migrations
                 keyColumn: "Id",
                 keyValue: "1781efa7-66dc-47f0-860f-e506d04102e4",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "49ccbf15-e86a-4f97-b30c-259305439a3a", "AQAAAAIAAYagAAAAEDA/Oq7ixEkozM/Hc1oRvM7L3ZmzvkDv4mqCcbxHZjjytvjFtEeZAvr/9YzpSvdsxA==", "4c69ee4a-1522-473e-a256-b910e062e3c5" });
+                values: new object[] { "72d1f3ee-80ed-4696-a1f2-f16cb52771b7", "AQAAAAIAAYagAAAAEEh5gtUIwbW3MeT1bf7FwL2dC32la09MUKJvJBHGxyExMvlQsLRrmCwTVk6iQHFMBQ==", "36aed453-f3a0-4616-bd33-582385371a1a" });
         }
     }
 }

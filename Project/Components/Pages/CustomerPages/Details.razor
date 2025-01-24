@@ -1,9 +1,10 @@
 ﻿@page "/customers/details"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Project.Domain
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
 @inject NavigationManager NavigationManager
-
+@attribute [Authorize(Roles = "Administrator")]
 <PageTitle>Details</PageTitle>
 
 <h1>Details</h1>

@@ -1,9 +1,11 @@
 ﻿@page "/organizations/delete"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Project.Domain
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
 @inject NavigationManager NavigationManager
 
+@attribute [Authorize(Roles = "Administrator")]
 <PageTitle>Delete</PageTitle>
 
 <h1>Delete</h1>

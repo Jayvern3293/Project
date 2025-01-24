@@ -4,6 +4,9 @@
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
 @inject NavigationManager NavigationManager
 
+        
+
+
 <PageTitle>Details</PageTitle>
 
 <h1>Details</h1>
@@ -23,7 +26,9 @@
             <dd class="col-sm-10">@organization.Address</dd>
         </dl>
         <div>
-            <a href="@($"/organizations/edit?organizationid={organization.OrganizationId}")">Edit</a> |
+            <AuthorizeView Roles="Administrator">
+            <a href="@($"/organizations/edit?organizationid={organization.OrganizationId}")">Edit</a> 
+            </AuthorizeView>
             <a href="@($"/organizations")">Back to List</a>
         </div>
     }

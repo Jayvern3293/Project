@@ -1,4 +1,5 @@
 ﻿@page "/organizations"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Project.Domain
@@ -6,22 +7,26 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+@attribute [Authorize(Roles = "Administrator, User")]
 
-<h1>Index</h1>
+<PageTitle>Organizations</PageTitle>
 
+<h1>Organizations</h1>
+<AuthorizeView Roles="Administrator">
 <p>
     <a href="organizations/create">Create New</a>
 </p>
-
+</AuthorizeView>
 <QuickGrid Class="table" Items="context.Organization">
     <PropertyColumn Property="organization => organization.Name" />
     <PropertyColumn Property="organization => organization.Address" />
 
     <TemplateColumn Context="organization">
+        <AuthorizeView Roles="Administrator">
         <a href="@($"organizations/edit?organizationid={organization.OrganizationId}")">Edit</a> |
-        <a href="@($"organizations/details?organizationid={organization.OrganizationId}")">Details</a> |
-        <a href="@($"organizations/delete?organizationid={organization.OrganizationId}")">Delete</a>
+        <a href="@($"organizations/delete?organizationid={organization.OrganizationId}")">Delete</a>|
+        </AuthorizeView>
+        <a href="@($"organizations/details?organizationid={organization.OrganizationId}")">Details</a> 
     </TemplateColumn>
 </QuickGrid>
 

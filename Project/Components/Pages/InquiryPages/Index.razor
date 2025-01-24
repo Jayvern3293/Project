@@ -1,18 +1,23 @@
 ﻿@page "/inquiries"
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Project.Domain
 @using Project.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<Project.Data.ProjectContext> DbFactory
+@attribute [Authorize(Roles = "Administrator")]
 
-<PageTitle>Index</PageTitle>
 
-<h1>Index</h1>
+<PageTitle>Inquiries</PageTitle>
 
+<h1>Inquiries</h1>
+
+<AuthorizeView Roles = "User">
 <p>
     <a href="inquiries/create">Create New</a>
 </p>
+</AuthorizeView>
 
 <QuickGrid Class="table" Items="context.Inquiry">
     <PropertyColumn Property="inquiry => inquiry.Question" />
